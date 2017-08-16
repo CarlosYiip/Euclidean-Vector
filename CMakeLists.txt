@@ -3,5 +3,5 @@ project(a2)
 
 set(CMAKE_CXX_STANDARD 14)
 
-set(SOURCE_FILES main.cpp)
+set(SOURCE_FILES EuclideanVector.cpp)
 add_executable(a2 ${SOURCE_FILES})
