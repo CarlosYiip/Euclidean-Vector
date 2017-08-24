@@ -43,11 +43,6 @@ EuclideanVector::EuclideanVector(EuclideanVector&& other): p1{new unsigned {*oth
 // Destructor
 EuclideanVector::~EuclideanVector() noexcept { delete p1; delete[] p2; }
 
-
-
-
-
-
 /*******************************************  Overloading operators  **************************************************/
 
 // Copy Assignment
@@ -136,11 +131,6 @@ EuclideanVector::operator std::list<double>() const {
     return tmp;
 }
 
-/**********************************************  Nonmember Functions  *************************************************/
-
-
-
-
 /***********************************************  Member Functions  ***************************************************/
 
 // Return the number of dimensions
@@ -162,12 +152,73 @@ double EuclideanVector::getEuclideanNorm() {
     }
 }
 
+// Return a new unit vector
 EuclideanVector EuclideanVector::createUnitVector() {
-    std::vector<double> tmp;
+    EuclideanVector unitVector {*this};
     double norm = getEuclideanNorm();
-    std::transform(p2, p2 + *p1, std::back_inserter(tmp), [&norm] (const auto& x) {return x / norm;});
-    EuclideanVector ev {tmp.begin(), tmp.end()};
-    return ev;
+    std::transform(p2, p2 + *p1, unitVector.p2, [&norm] (const auto& x) {return x / norm;});
+    return unitVector;
+}
+
+/**********************************************  Nonmember Functions  *************************************************/
+
+
+bool evec::operator==(const EuclideanVector& v1, const EuclideanVector& v2) {
+    if (v1.getNumDimensions() != v2.getNumDimensions())
+        return false;
+
+    for (unsigned i = 0; i < v1.getNumDimensions(); ++i) {
+        if (v1.p2[i] != v2.p2[i])
+            return false;
+    }
+
+    return true;
+}
+
+bool evec::operator!=(const EuclideanVector& v1, const EuclideanVector& v2) {
+    return !(v1 == v2);
+}
+
+EuclideanVector evec::operator+(const EuclideanVector& v1, const EuclideanVector& v2) {
+    EuclideanVector sum {v1};
+    sum += v2;
+    return sum;
+}
+
+EuclideanVector evec::operator-(const EuclideanVector& v1, const EuclideanVector& v2) {
+    EuclideanVector diff {v1};
+    diff -= v2;
+    return diff;
+}
+
+double evec::operator*(const EuclideanVector& v1, const EuclideanVector& v2) {
+    return std::inner_product(v1.p2, v1.p2 + *v1.p1, v2.p2, 0);
+}
+
+EuclideanVector evec::operator*(const EuclideanVector& v, double n) {
+    EuclideanVector product {v};
+    std::transform(product.p2, product.p2 + *product.p1, product.p2, [&n] (auto& i) {return i * n;});
+    return product;
+}
+
+EuclideanVector evec::operator*(double n, const EuclideanVector& v) {
+    return v * n;
+}
+
+EuclideanVector evec::operator/(const EuclideanVector& v, double n) {
+    return v * (1 / n);
+}
+
+
+std::ostream& evec::operator<<(std::ostream& os, const EuclideanVector& v) {
+    if (v.p1 == nullptr) {
+        std::cout << "[]";
+        return os;
+    }
+    std::cout << '[';
+    std::for_each(v.p2, v.p2 + *v.p1 - 1, [] (const auto& i) {std::cout << i << ' ';});
+    std::cout << v.p2[*v.p1-1] << ']';
+    return os;
 }
 
 /***********************************************  Debug  Functions  ***************************************************/

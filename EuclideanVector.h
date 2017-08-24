@@ -11,6 +11,27 @@
 
 namespace evec {
     class EuclideanVector {
+        // Equality Operator
+        friend bool operator==(const EuclideanVector&, const EuclideanVector&);
+        friend bool operator!=(const EuclideanVector&, const EuclideanVector&);
+
+        // Addition Operator
+        friend EuclideanVector operator+(const EuclideanVector&, const EuclideanVector&);
+
+        // Subtraction Operator
+        friend EuclideanVector operator-(const EuclideanVector&, const EuclideanVector&);
+
+        // Multiplication Operator
+        friend double operator*(const EuclideanVector&, const EuclideanVector&);
+        friend EuclideanVector operator*(const EuclideanVector&, double);
+        friend EuclideanVector operator*(double, const EuclideanVector&);
+
+        // Division Operator
+        friend EuclideanVector operator/(const EuclideanVector&, double);
+
+        // Ostream Operator
+        friend std::ostream& operator<<(std::ostream&, const EuclideanVector&);
+
     public:
         // Default constructor
         EuclideanVector();
@@ -67,66 +88,6 @@ namespace evec {
         // Type Conversion Operator (std::list)
         operator std::list<double>() const;
 
-
-/****************************************************  Friends ********************************************************/
-        friend bool operator==(const EuclideanVector& v1, const EuclideanVector& v2) {
-            if (v1.getNumDimensions() != v2.getNumDimensions())
-                return false;
-            for (unsigned i = 0; i < v1.getNumDimensions(); ++i) {
-                if (v1.p2[i] != v2.p2[i])
-                    return false;
-            }
-            return true;
-        };
-
-        friend bool operator!=(const EuclideanVector& v1, const EuclideanVector& v2) {
-            return !(v1 == v2);
-        }
-
-        friend EuclideanVector operator+(const EuclideanVector& v1, const EuclideanVector& v2) {
-            EuclideanVector sum {v1};
-            sum += v2;
-            return sum;
-        }
-
-        friend EuclideanVector operator-(const EuclideanVector& v1, const EuclideanVector v2) {
-            EuclideanVector diff {v1};
-            diff -= v2;
-            return diff;
-        }
-
-        friend double operator*(const EuclideanVector& v1, const EuclideanVector& v2) {
-            return std::inner_product(v1.p2, v1.p2 + *v1.p1, v2.p2, 0.0);
-        }
-
-        friend EuclideanVector operator*(const EuclideanVector& v, double d) {
-            EuclideanVector product {v};
-            std::transform(product.p2, product.p2 + product.getNumDimensions(), product.p2, [&d] (const auto& i) {return i * d;});
-            return product;
-        }
-
-        friend EuclideanVector operator*(double d, const EuclideanVector& v) {
-            return v * d;
-        }
-
-        friend EuclideanVector operator/(const EuclideanVector& v, double d) {
-            return v * (1 / d);
-        }
-
-        friend std::ostream& operator<<(std::ostream& os, const EuclideanVector& v) {
-            if (v.p1 == nullptr) {
-                std::cout << "[]";
-                return os;
-            }
-            std::cout << '[';
-            std::for_each(v.p2, v.p2 + *v.p1 - 1, [] (const auto& i) {std::cout << i << ' ';});
-            std::cout << v.p2[*v.p1-1] << ']';
-            return os;
-        }
-
-/****************************************************  Friends ********************************************************/
-
-
         // Return the number of dimensions
         unsigned getNumDimensions() const;
 
@@ -139,19 +100,34 @@ namespace evec {
         // Create a unit vector
         EuclideanVector createUnitVector();
 
-
-
         // Debug Helper functions
         void printInfo() const;
 
     private:
-        unsigned* p1; // Number of dimensions
-        double* p2; // Magnitudes of dimensions
+        unsigned* p1 = nullptr; // Number of dimensions
+        double* p2 = nullptr; // Magnitudes of dimensions
         double* p3 = nullptr; // Euclidean norm
-
-
     };
+
+    // Equality Operator
+    bool operator==(const EuclideanVector&, const EuclideanVector&);
+    bool operator!=(const EuclideanVector&, const EuclideanVector&);
+
+    // Addition Operator
+    EuclideanVector operator+(const EuclideanVector&, const EuclideanVector&);
+
+    // Subtraction Operator
+    EuclideanVector operator-(const EuclideanVector&, const EuclideanVector&);
+
+    // Multiplication Operator
+    double operator*(const EuclideanVector&, const EuclideanVector&);
+    EuclideanVector operator*(const EuclideanVector&, double);
+    EuclideanVector operator*(double, const EuclideanVector&);
+
+    // Division Operator
+    EuclideanVector operator/(const EuclideanVector&, double);
+
+    // Ostream Operator
+    std::ostream& operator<<(std::ostream&, const EuclideanVector&);
 }
-
-
 #endif
