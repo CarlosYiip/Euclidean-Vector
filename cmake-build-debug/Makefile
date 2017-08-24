@@ -123,32 +123,32 @@ a2/fast:
 	$(MAKE) -f CMakeFiles/a2.dir/build.make CMakeFiles/a2.dir/build
 .PHONY : a2/fast
 
-main.o: main.cpp.o
+EuclideanVector.o: EuclideanVector.cpp.o
 
-.PHONY : main.o
+.PHONY : EuclideanVector.o
 
 # target to build an object file
-main.cpp.o:
-	$(MAKE) -f CMakeFiles/a2.dir/build.make CMakeFiles/a2.dir/main.cpp.o
-.PHONY : main.cpp.o
+EuclideanVector.cpp.o:
+	$(MAKE) -f CMakeFiles/a2.dir/build.make CMakeFiles/a2.dir/EuclideanVector.cpp.o
+.PHONY : EuclideanVector.cpp.o
 
-main.i: main.cpp.i
+EuclideanVector.i: EuclideanVector.cpp.i
 
-.PHONY : main.i
+.PHONY : EuclideanVector.i
 
 # target to preprocess a source file
-main.cpp.i:
-	$(MAKE) -f CMakeFiles/a2.dir/build.make CMakeFiles/a2.dir/main.cpp.i
-.PHONY : main.cpp.i
+EuclideanVector.cpp.i:
+	$(MAKE) -f CMakeFiles/a2.dir/build.make CMakeFiles/a2.dir/EuclideanVector.cpp.i
+.PHONY : EuclideanVector.cpp.i
 
-main.s: main.cpp.s
+EuclideanVector.s: EuclideanVector.cpp.s
 
-.PHONY : main.s
+.PHONY : EuclideanVector.s
 
 # target to generate assembly for a file
-main.cpp.s:
-	$(MAKE) -f CMakeFiles/a2.dir/build.make CMakeFiles/a2.dir/main.cpp.s
-.PHONY : main.cpp.s
+EuclideanVector.cpp.s:
+	$(MAKE) -f CMakeFiles/a2.dir/build.make CMakeFiles/a2.dir/EuclideanVector.cpp.s
+.PHONY : EuclideanVector.cpp.s
 
 # Help Target
 help:
@@ -159,9 +159,9 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... a2"
-	@echo "... main.o"
-	@echo "... main.i"
-	@echo "... main.s"
+	@echo "... EuclideanVector.o"
+	@echo "... EuclideanVector.i"
+	@echo "... EuclideanVector.s"
 .PHONY : help
 
 

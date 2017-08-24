@@ -57,38 +57,38 @@ include CMakeFiles/a2.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/a2.dir/flags.make
 
-CMakeFiles/a2.dir/main.cpp.o: CMakeFiles/a2.dir/flags.make
-CMakeFiles/a2.dir/main.cpp.o: ../main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/carlosye/Desktop/COMP6771/a2/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/a2.dir/main.cpp.o"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/a2.dir/main.cpp.o -c /Users/carlosye/Desktop/COMP6771/a2/main.cpp
+CMakeFiles/a2.dir/EuclideanVector.cpp.o: CMakeFiles/a2.dir/flags.make
+CMakeFiles/a2.dir/EuclideanVector.cpp.o: ../EuclideanVector.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/carlosye/Desktop/COMP6771/a2/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/a2.dir/EuclideanVector.cpp.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/a2.dir/EuclideanVector.cpp.o -c /Users/carlosye/Desktop/COMP6771/a2/EuclideanVector.cpp
 
-CMakeFiles/a2.dir/main.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/a2.dir/main.cpp.i"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/carlosye/Desktop/COMP6771/a2/main.cpp > CMakeFiles/a2.dir/main.cpp.i
+CMakeFiles/a2.dir/EuclideanVector.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/a2.dir/EuclideanVector.cpp.i"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/carlosye/Desktop/COMP6771/a2/EuclideanVector.cpp > CMakeFiles/a2.dir/EuclideanVector.cpp.i
 
-CMakeFiles/a2.dir/main.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/a2.dir/main.cpp.s"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/carlosye/Desktop/COMP6771/a2/main.cpp -o CMakeFiles/a2.dir/main.cpp.s
+CMakeFiles/a2.dir/EuclideanVector.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/a2.dir/EuclideanVector.cpp.s"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/carlosye/Desktop/COMP6771/a2/EuclideanVector.cpp -o CMakeFiles/a2.dir/EuclideanVector.cpp.s
 
-CMakeFiles/a2.dir/main.cpp.o.requires:
+CMakeFiles/a2.dir/EuclideanVector.cpp.o.requires:
 
-.PHONY : CMakeFiles/a2.dir/main.cpp.o.requires
+.PHONY : CMakeFiles/a2.dir/EuclideanVector.cpp.o.requires
 
-CMakeFiles/a2.dir/main.cpp.o.provides: CMakeFiles/a2.dir/main.cpp.o.requires
-	$(MAKE) -f CMakeFiles/a2.dir/build.make CMakeFiles/a2.dir/main.cpp.o.provides.build
-.PHONY : CMakeFiles/a2.dir/main.cpp.o.provides
+CMakeFiles/a2.dir/EuclideanVector.cpp.o.provides: CMakeFiles/a2.dir/EuclideanVector.cpp.o.requires
+	$(MAKE) -f CMakeFiles/a2.dir/build.make CMakeFiles/a2.dir/EuclideanVector.cpp.o.provides.build
+.PHONY : CMakeFiles/a2.dir/EuclideanVector.cpp.o.provides
 
-CMakeFiles/a2.dir/main.cpp.o.provides.build: CMakeFiles/a2.dir/main.cpp.o
+CMakeFiles/a2.dir/EuclideanVector.cpp.o.provides.build: CMakeFiles/a2.dir/EuclideanVector.cpp.o
 
 
 # Object files for target a2
 a2_OBJECTS = \
-"CMakeFiles/a2.dir/main.cpp.o"
+"CMakeFiles/a2.dir/EuclideanVector.cpp.o"
 
 # External object files for target a2
 a2_EXTERNAL_OBJECTS =
 
-a2: CMakeFiles/a2.dir/main.cpp.o
+a2: CMakeFiles/a2.dir/EuclideanVector.cpp.o
 a2: CMakeFiles/a2.dir/build.make
 a2: CMakeFiles/a2.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/carlosye/Desktop/COMP6771/a2/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable a2"
@@ -99,7 +99,7 @@ CMakeFiles/a2.dir/build: a2
 
 .PHONY : CMakeFiles/a2.dir/build
 
-CMakeFiles/a2.dir/requires: CMakeFiles/a2.dir/main.cpp.o.requires
+CMakeFiles/a2.dir/requires: CMakeFiles/a2.dir/EuclideanVector.cpp.o.requires
 
 .PHONY : CMakeFiles/a2.dir/requires
 

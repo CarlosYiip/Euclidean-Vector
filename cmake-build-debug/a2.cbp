@@ -82,7 +82,10 @@
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/Users/carlosye/Desktop/COMP6771/a2/main.cpp">
+		<Unit filename="/Users/carlosye/Desktop/COMP6771/a2/EuclideanVector.cpp">
+			<Option target="a2"/>
+		</Unit>
+		<Unit filename="/Users/carlosye/Desktop/COMP6771/a2/EuclideanVector.h">
 			<Option target="a2"/>
 		</Unit>
 		<Unit filename="/Users/carlosye/Desktop/COMP6771/a2/CMakeLists.txt">
