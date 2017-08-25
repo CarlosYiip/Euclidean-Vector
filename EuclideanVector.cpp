@@ -50,14 +50,14 @@ EuclideanVector& EuclideanVector::operator=(const EuclideanVector& other) {
     if (this != &other) {
         *p1 = *other.p1;
 
+        // Deallocate memory before creating a new potentially different size array
         delete[] p2;
         p2 = new double[*other.p1];
         std::copy(other.p2, other.p2 + *other.p1, p2);
 
-        if (other.p3 != nullptr) {
-            delete p3;
-            p3 = new double {*other.p3};
-        }
+        // Reset the value of euclidean norm to null
+        delete p3;
+        p3 = nullptr;
     }
     return *this;
 }
@@ -65,25 +65,34 @@ EuclideanVector& EuclideanVector::operator=(const EuclideanVector& other) {
 // Move Assignment
 EuclideanVector& EuclideanVector::operator=(EuclideanVector&& other) {
     if (this != &other) {
+        // Deallocate memory
         delete p1;
+        // Make the pointer point to the move_from object (NumberOfDimension)
         p1 = other.p1;
+        // Make the pointer in move_from object point to nullptr which
+        // ensure the move from object is now in a valid state
         other.p1 = nullptr;
 
+        // Deallocate memory
         delete[] p2;
+        // Make the pointer point to the move_from object (MagnitudesOfEachDimensions)
         p2 = other.p2;
+        // Make the pointer in move_from object point to nullptr which
+        // ensure the move from object is now in a valid state
         other.p2 = nullptr;
 
-        if (other.p3 != nullptr) {
-            delete p3;
-            p3 = other.p3;
-            other.p3 = nullptr;
-        }
+        // Reset the value of euclidean norm to null (both move_in and move_from)
+        delete p3;
+        p3 = other.p3;
+        other.p3 = nullptr;
     }
     return *this;
 }
 
 // Subscript Operator (set)
 double& EuclideanVector::operator[](int index) {
+    // Euclidean norm might be changed
+    delete p3;
     p3 = nullptr;
     return p2[index];
 }
@@ -95,6 +104,8 @@ double EuclideanVector::operator[](int index) const { return p2[index]; }
 EuclideanVector& EuclideanVector::operator+=(const EuclideanVector& other) {
     for (int i = 0; i < *p1; ++i)
         p2[i] += other.p2[i];
+    // Euclidean norm might be changed
+    delete p3;
     p3 = nullptr;
     return *this;
 }
@@ -103,13 +114,17 @@ EuclideanVector& EuclideanVector::operator+=(const EuclideanVector& other) {
 EuclideanVector& EuclideanVector::operator-=(const EuclideanVector& other) {
     for (int i = 0; i < *p1; ++i)
         p2[i] -= other.p2[i];
+    // Euclidean norm might be changed
+    delete p3;
     p3 = nullptr;
     return *this;
 }
 
 // Compound Assignment Operator (*=)
 EuclideanVector& EuclideanVector::operator*=(double i) {
-    std::transform(p2, p2 + *p1, p2, [&i] (double& d) {return d * i;});
+    std::transform(p2, p2 + *p1, p2, [&i] (auto& d) {return d * i;});
+    // Euclidean norm might be changed
+    delete p3;
     p3 = nullptr;
     return *this;
 }
@@ -144,9 +159,11 @@ double EuclideanVector::get(unsigned i) const { return p2[i]; }
 // Return the euclidean norm
 double EuclideanVector::getEuclideanNorm() {
     if (p3 != nullptr) {
+        // If there is cached value
         return *p3;
     } else {
-        double res = std::accumulate(p2, p2 + *p1, 0.0, [] (const auto& a, const auto& b) {return a + b * b;});
+        // Otherwise, calculate the value
+        double res = std::accumulate(p2, p2 + *p1, 0.0, [] (auto& a, auto& b) {return a + b * b;});
         p3 = new double {sqrt(res)};
         return *p3;
     }
@@ -156,17 +173,17 @@ double EuclideanVector::getEuclideanNorm() {
 EuclideanVector EuclideanVector::createUnitVector() {
     EuclideanVector unitVector {*this};
     double norm = getEuclideanNorm();
-    std::transform(p2, p2 + *p1, unitVector.p2, [&norm] (const auto& x) {return x / norm;});
+    std::transform(p2, p2 + *p1, unitVector.p2, [&norm] (auto& x) {return x / norm;});
     return unitVector;
 }
 
 /**********************************************  Nonmember Functions  *************************************************/
-
-
 bool evec::operator==(const EuclideanVector& v1, const EuclideanVector& v2) {
+    // Firstly, check whether the two vectors have same number of dimensions
     if (v1.getNumDimensions() != v2.getNumDimensions())
         return false;
 
+    // Secondly, check whether magnitudes of each dimension are equal
     for (unsigned i = 0; i < v1.getNumDimensions(); ++i) {
         if (v1.p2[i] != v2.p2[i])
             return false;
@@ -192,7 +209,7 @@ EuclideanVector evec::operator-(const EuclideanVector& v1, const EuclideanVector
 }
 
 double evec::operator*(const EuclideanVector& v1, const EuclideanVector& v2) {
-    return std::inner_product(v1.p2, v1.p2 + *v1.p1, v2.p2, 0);
+    return std::inner_product(v1.p2, v1.p2 + *v1.p1, v2.p2, 0.0);
 }
 
 EuclideanVector evec::operator*(const EuclideanVector& v, double n) {
@@ -229,7 +246,6 @@ void EuclideanVector::printInfo() const {
         return;
     }
 
-
     std::cout << "Number of dimensions: " << *p1 << '\n';
     std::cout << "Magnitudes: ";
     for (auto i = 0; i != *p1; ++i) {
@@ -243,5 +259,4 @@ void EuclideanVector::printInfo() const {
     std::cout << "Array memory address = " << p2 << '\n';
     std::cout << "Dimensionality memory address = " << p1 << '\n';
     std::cout << "Euclidean norm address = " << p3 << '\n' << '\n';
-
 }

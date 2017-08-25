@@ -4,8 +4,9 @@
 
 #include "EuclideanVector.h"
 
-int main() {
 
+
+int main() {
     evec::EuclideanVector a(2);
 
     std::list<double> l {1,2,3};

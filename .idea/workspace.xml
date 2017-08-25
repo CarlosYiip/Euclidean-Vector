@@ -15,10 +15,9 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/EuclideanVector.o" afterPath="$PROJECT_DIR$/EuclideanVector.o" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/EuclideanVectorTester" afterPath="$PROJECT_DIR$/EuclideanVectorTester" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/EuclideanVectorTester.o" afterPath="$PROJECT_DIR$/EuclideanVectorTester.o" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/EuclideanVector.cpp" afterPath="$PROJECT_DIR$/EuclideanVector.cpp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/EuclideanVector.h" afterPath="$PROJECT_DIR$/EuclideanVector.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/makefile" afterPath="$PROJECT_DIR$/makefile" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/EuclideanVectorTester.cpp" afterPath="$PROJECT_DIR$/EuclideanVectorTester.cpp" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -36,8 +35,8 @@
           <file leaf-file-name="EuclideanVector.cpp" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/EuclideanVector.cpp">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="452">
-                  <caret line="157" column="37" lean-forward="true" selection-start-line="157" selection-start-column="37" selection-end-line="157" selection-end-column="37" />
+                <state relative-caret-position="-2189">
+                  <caret line="58" column="18" lean-forward="true" selection-start-line="58" selection-start-column="18" selection-end-line="58" selection-end-column="18" />
                   <folding />
                 </state>
               </provider>
@@ -56,55 +55,40 @@
         </leaf>
       </split-first>
       <split-second>
-        <splitter split-orientation="vertical" split-proportion="0.40955284">
-          <split-first>
-            <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-              <file leaf-file-name="EuclideanVector.h" pinned="false" current-in-tab="false">
-                <entry file="file://$PROJECT_DIR$/EuclideanVector.h">
-                  <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="0">
-                      <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-                      <folding>
-                        <element signature="e#59#76#0" expanded="true" />
-                        <marker date="1503573289000" expanded="true" signature="214:4398" ph="{...}" />
-                      </folding>
-                    </state>
-                  </provider>
-                </entry>
-              </file>
-              <file leaf-file-name="EuclideanVectorTester.cpp" pinned="false" current-in-tab="true">
-                <entry file="file://$PROJECT_DIR$/EuclideanVectorTester.cpp">
-                  <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="93">
-                      <caret line="7" column="0" lean-forward="true" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
-                      <folding>
-                        <element signature="e#0#19#0" expanded="true" />
-                      </folding>
-                    </state>
-                  </provider>
-                </entry>
-              </file>
-            </leaf>
-          </split-first>
-          <split-second>
-            <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-              <file leaf-file-name="EuclideanVector.h" pinned="false" current-in-tab="true">
-                <entry file="file://$PROJECT_DIR$/EuclideanVector.h">
-                  <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="317">
-                      <caret line="123" column="29" lean-forward="true" selection-start-line="123" selection-start-column="29" selection-end-line="123" selection-end-column="29" />
-                      <folding>
-                        <element signature="e#59#76#0" expanded="true" />
-                      </folding>
-                    </state>
-                  </provider>
-                </entry>
-              </file>
-            </leaf>
-          </split-second>
-        </splitter>
+        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+          <file leaf-file-name="EuclideanVector.h" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/EuclideanVector.h">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="1665">
+                  <caret line="132" column="6" lean-forward="false" selection-start-line="132" selection-start-column="6" selection-end-line="132" selection-end-column="6" />
+                  <folding>
+                    <element signature="e#59#76#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="EuclideanVectorTester.cpp" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/EuclideanVectorTester.cpp">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="315">
+                  <caret line="21" column="49" lean-forward="true" selection-start-line="21" selection-start-column="49" selection-end-line="21" selection-end-column="49" />
+                  <folding>
+                    <element signature="e#0#19#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
       </split-second>
     </splitter>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>nullptr</find>
+      <find>prod</find>
+    </findStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -113,8 +97,8 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/makefile" />
-        <option value="$PROJECT_DIR$/EuclideanVectorTester.cpp" />
         <option value="$PROJECT_DIR$/EuclideanVector.h" />
+        <option value="$PROJECT_DIR$/EuclideanVectorTester.cpp" />
         <option value="$PROJECT_DIR$/EuclideanVector.cpp" />
       </list>
     </option>
@@ -389,12 +373,12 @@
       <option name="presentableId" value="Default" />
       <updated>1502886031196</updated>
       <workItem from="1502886032541" duration="46672000" />
-      <workItem from="1503535510203" duration="10376000" />
+      <workItem from="1503535510203" duration="16093000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="57048000" />
+    <option name="totallyTimeSpent" value="62765000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1920" height="1080" extended-state="6" />
@@ -477,10 +461,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/EuclideanVector.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1665">
+          <caret line="132" column="6" lean-forward="false" selection-start-line="132" selection-start-column="6" selection-end-line="132" selection-end-column="6" />
+          <folding>
+            <element signature="e#59#76#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/EuclideanVectorTester.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="93">
-          <caret line="7" column="0" lean-forward="true" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+        <state relative-caret-position="315">
+          <caret line="21" column="49" lean-forward="true" selection-start-line="21" selection-start-column="49" selection-end-line="21" selection-end-column="49" />
           <folding>
             <element signature="e#0#19#0" expanded="true" />
           </folding>
@@ -489,19 +483,9 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/EuclideanVector.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="452">
-          <caret line="157" column="37" lean-forward="true" selection-start-line="157" selection-start-column="37" selection-end-line="157" selection-end-column="37" />
+        <state relative-caret-position="-2189">
+          <caret line="58" column="18" lean-forward="true" selection-start-line="58" selection-start-column="18" selection-end-line="58" selection-end-column="18" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/EuclideanVector.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="317">
-          <caret line="123" column="29" lean-forward="true" selection-start-line="123" selection-start-column="29" selection-end-line="123" selection-end-column="29" />
-          <folding>
-            <element signature="e#59#76#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
