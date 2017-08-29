@@ -4,8 +4,6 @@
 
 #include "EuclideanVector.h"
 
-
-
 int main() {
     evec::EuclideanVector a(2);
 

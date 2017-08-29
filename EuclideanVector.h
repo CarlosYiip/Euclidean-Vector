@@ -11,27 +11,6 @@
 
 namespace evec {
     class EuclideanVector {
-        // Equality Operator
-        friend bool operator==(const EuclideanVector&, const EuclideanVector&);
-        friend bool operator!=(const EuclideanVector&, const EuclideanVector&);
-
-        // Addition Operator
-        friend EuclideanVector operator+(const EuclideanVector&, const EuclideanVector&);
-
-        // Subtraction Operator
-        friend EuclideanVector operator-(const EuclideanVector&, const EuclideanVector&);
-
-        // Multiplication Operator
-        friend double operator*(const EuclideanVector&, const EuclideanVector&);
-        friend EuclideanVector operator*(const EuclideanVector&, double);
-        friend EuclideanVector operator*(double, const EuclideanVector&);
-
-        // Division Operator
-        friend EuclideanVector operator/(const EuclideanVector&, double);
-
-        // Ostream Operator
-        friend std::ostream& operator<<(std::ostream&, const EuclideanVector&);
-
     public:
         // Default constructor
         EuclideanVector();
@@ -43,8 +22,12 @@ namespace evec {
         EuclideanVector(unsigned, double);
 
         // Constructor that takes the start and end of an iterator
-        EuclideanVector(std::vector<double>::iterator, std::vector<double>::iterator);
-        EuclideanVector(std::list<double>::iterator, std::list<double>::iterator);
+
+        template <typename It>
+        EuclideanVector(It beg, It end): numberOfDimension{static_cast<unsigned>(std::distance(beg, end))}, magnitudes{new double[numberOfDimension]} {
+            std::copy(beg, end, begin());
+        }
+
 
         // Constructor that takes a initialiser list of doubles
         EuclideanVector(std::initializer_list<double>);
@@ -95,18 +78,38 @@ namespace evec {
         double get(unsigned) const;
 
         // Return the euclidean norm
-        double getEuclideanNorm();
+        double getEuclideanNorm() const;
 
         // Create a unit vector
-        EuclideanVector createUnitVector();
+        EuclideanVector createUnitVector() const;
 
         // Debug Helper functions
         void printInfo() const;
 
     private:
-        unsigned* p1 = nullptr; // Number of dimensions
-        double* p2 = nullptr; // Magnitudes of dimensions
-        double* p3 = nullptr; // Euclidean norm
+        unsigned numberOfDimension = 0; // Number of dimensions
+        double* magnitudes = nullptr; // Magnitudes of dimensions
+        mutable double euclideanNorm = -1; // Euclidean norm
+
+        double const * cbegin() const { 
+            double const * p = magnitudes;
+            return p;
+        };
+
+        double const * cend() const {
+            double const * p = magnitudes + numberOfDimension;
+            return p;
+        }
+
+        double * begin() {
+            double * p = magnitudes;
+            return p;
+        }
+
+        double * end() {
+            double * p = magnitudes + numberOfDimension;
+            return p;
+        }
     };
 
     // Equality Operator

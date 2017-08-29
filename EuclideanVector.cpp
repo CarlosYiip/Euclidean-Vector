@@ -12,52 +12,36 @@ EuclideanVector::EuclideanVector(unsigned n): EuclideanVector(n, 0) {}
 
 // Constructor that takes the number of dimensions and initialises the magnitude in each dimension as the second argument
 EuclideanVector::EuclideanVector(unsigned n, double m):
-        p1{new unsigned {n}}, p2{new double[n]} { std::fill(p2, p2 + n, m); }
-
-// Constructor that takes the start and end of an iterator
-EuclideanVector::EuclideanVector(std::vector<double>::iterator beg, std::vector<double>::iterator end):
-        p1{new unsigned {static_cast<unsigned>(std::distance(beg, end))}},
-        p2{new double[*p1]} { std::copy(beg, end, p2); }
-EuclideanVector::EuclideanVector(std::list<double>::iterator beg, std::list<double>::iterator end):
-        p1{new unsigned {static_cast<unsigned>(std::distance(beg, end))}},
-        p2{new double[*p1]} { std::copy(beg, end, p2); }
-
+        numberOfDimension{n}, magnitudes{new double[n]} { std::fill(begin(), end(), m); }
 
 // Constructor that takes a initialiser list of doubles
-EuclideanVector::EuclideanVector(std::initializer_list<double> list):
-        p1{new unsigned {static_cast<unsigned>(std::distance(list.begin(), list.end()))}},
-        p2{new double[*p1]} { std::copy(list.begin(), list.end(), p2); }
+EuclideanVector::EuclideanVector(std::initializer_list<double> list): EuclideanVector{list.begin(), list.end()} {}
 
 // Copy Constructor
-EuclideanVector::EuclideanVector(const EuclideanVector& other):
-        p1{new unsigned {*other.p1}}, p2{new double[*p1]} { std::copy(other.p2, other.p2 + *other.p1, p2); }
+EuclideanVector::EuclideanVector(const EuclideanVector& other): numberOfDimension{other.getNumDimensions()}, magnitudes{new double[other.getNumDimensions()]} { 
+            std::copy(other.cbegin(), other.cend(), begin()); 
+        }
 
 // Move Constructor
-EuclideanVector::EuclideanVector(EuclideanVector&& other): p1{new unsigned {*other.p1}}, p2{new double[*p1]} {
-    p2 = other.p2;
-    p1 = other.p1;
-    other.p1 = nullptr;
-    other.p2 = nullptr;
+EuclideanVector::EuclideanVector(EuclideanVector&& other): numberOfDimension{other.getNumDimensions()}, magnitudes{other.begin()} {
+    other.numberOfDimension = 0;
+    other.magnitudes = nullptr;
 }
 
 // Destructor
-EuclideanVector::~EuclideanVector() noexcept { delete p1; delete[] p2; }
+EuclideanVector::~EuclideanVector() noexcept { delete[] magnitudes; }
 
 /*******************************************  Overloading operators  **************************************************/
 
 // Copy Assignment
 EuclideanVector& EuclideanVector::operator=(const EuclideanVector& other) {
     if (this != &other) {
-        *p1 = *other.p1;
+        numberOfDimension = other.getNumDimensions();
 
         // Deallocate memory before creating a new potentially different size array
-        delete[] p2;
-        p2 = new double[*other.p1];
-        std::copy(other.p2, other.p2 + *other.p1, p2);
-
-        // Reset the value of euclidean norm to null
-        delete p3;
-        p3 = nullptr;
+        delete[] magnitudes;
+        magnitudes = new double[other.getNumDimensions()];
+        std::copy(other.cbegin(), other.cend(), begin());
     }
     return *this;
 }
@@ -65,26 +49,16 @@ EuclideanVector& EuclideanVector::operator=(const EuclideanVector& other) {
 // Move Assignment
 EuclideanVector& EuclideanVector::operator=(EuclideanVector&& other) {
     if (this != &other) {
-        // Deallocate memory
-        delete p1;
-        // Make the pointer point to the move_from object (NumberOfDimension)
-        p1 = other.p1;
-        // Make the pointer in move_from object point to nullptr which
-        // ensure the move from object is now in a valid state
-        other.p1 = nullptr;
+        numberOfDimension = other.numberOfDimension;
+        other.numberOfDimension = 0;
 
         // Deallocate memory
-        delete[] p2;
+        delete[] magnitudes;
         // Make the pointer point to the move_from object (MagnitudesOfEachDimensions)
-        p2 = other.p2;
+        magnitudes = other.magnitudes;
         // Make the pointer in move_from object point to nullptr which
         // ensure the move from object is now in a valid state
-        other.p2 = nullptr;
-
-        // Reset the value of euclidean norm to null (both move_in and move_from)
-        delete p3;
-        p3 = other.p3;
-        other.p3 = nullptr;
+        other.magnitudes = nullptr;
     }
     return *this;
 }
@@ -92,40 +66,37 @@ EuclideanVector& EuclideanVector::operator=(EuclideanVector&& other) {
 // Subscript Operator (set)
 double& EuclideanVector::operator[](int index) {
     // Euclidean norm might be changed
-    delete p3;
-    p3 = nullptr;
-    return p2[index];
+    euclideanNorm = -1;
+    return magnitudes[index];
 }
 
 // Subscript Operator (get)
-double EuclideanVector::operator[](int index) const { return p2[index]; }
+double EuclideanVector::operator[](int index) const { return magnitudes[index]; }
 
 // Compound Assignment Operator (+=)
 EuclideanVector& EuclideanVector::operator+=(const EuclideanVector& other) {
-    for (int i = 0; i < *p1; ++i)
-        p2[i] += other.p2[i];
+    for (unsigned i = 0u; i < getNumDimensions(); ++i)
+        magnitudes[i] += other[i];
+
     // Euclidean norm might be changed
-    delete p3;
-    p3 = nullptr;
+    euclideanNorm = -1;
     return *this;
 }
 
 // Compound Assignment Operator (-=)
 EuclideanVector& EuclideanVector::operator-=(const EuclideanVector& other) {
-    for (int i = 0; i < *p1; ++i)
-        p2[i] -= other.p2[i];
+    for (unsigned i = 0u; i < getNumDimensions(); ++i)
+        magnitudes[i] -= other[i];
     // Euclidean norm might be changed
-    delete p3;
-    p3 = nullptr;
+    euclideanNorm = -1;
     return *this;
 }
 
 // Compound Assignment Operator (*=)
 EuclideanVector& EuclideanVector::operator*=(double i) {
-    std::transform(p2, p2 + *p1, p2, [&i] (auto& d) {return d * i;});
+    std::for_each(begin(), end(), [&i] (auto& d) { d *= i;});
     // Euclidean norm might be changed
-    delete p3;
-    p3 = nullptr;
+    euclideanNorm = -1;
     return *this;
 }
 
@@ -136,13 +107,13 @@ EuclideanVector& EuclideanVector::operator/=(double i) {
 
 // Type Conversion Operator (std::vector)
 EuclideanVector::operator std::vector<double>() const {
-    std::vector<double> tmp {p2, p2 + *p1};
+    std::vector<double> tmp {cbegin(), cend()};
     return tmp;
 }
 
 // Type Conversion Operator (std::list)
 EuclideanVector::operator std::list<double>() const {
-    std::list<double> tmp {p2, p2 + *p1};
+    std::list<double> tmp {cbegin(), cend()};
     return tmp;
 }
 
@@ -150,30 +121,31 @@ EuclideanVector::operator std::list<double>() const {
 
 // Return the number of dimensions
 unsigned EuclideanVector::getNumDimensions() const {
-    return *p1;
+    return numberOfDimension;
 }
 
 // Return the value of magnitude in the dimension given as the function parameter
-double EuclideanVector::get(unsigned i) const { return p2[i]; }
+double EuclideanVector::get(unsigned i) const { 
+    return magnitudes[i]; 
+}
 
 // Return the euclidean norm
-double EuclideanVector::getEuclideanNorm() {
-    if (p3 != nullptr) {
+double EuclideanVector::getEuclideanNorm() const {
+    if (euclideanNorm != -1) {
         // If there is cached value
-        return *p3;
+        return euclideanNorm;
     } else {
         // Otherwise, calculate the value
-        double res = std::accumulate(p2, p2 + *p1, 0.0, [] (auto& a, auto& b) {return a + b * b;});
-        p3 = new double {sqrt(res)};
-        return *p3;
+        euclideanNorm = sqrt(std::accumulate(cbegin(), cend(), 0.0, [] (const double& a, const double& b) {return a + b * b;}));
+        return euclideanNorm;
     }
 }
 
 // Return a new unit vector
-EuclideanVector EuclideanVector::createUnitVector() {
+EuclideanVector EuclideanVector::createUnitVector() const {
     EuclideanVector unitVector {*this};
     double norm = getEuclideanNorm();
-    std::transform(p2, p2 + *p1, unitVector.p2, [&norm] (auto& x) {return x / norm;});
+    std::transform(cbegin(), cend(), unitVector.begin(), [&norm] (const auto& x) {return x / norm;});
     return unitVector;
 }
 
@@ -184,8 +156,8 @@ bool evec::operator==(const EuclideanVector& v1, const EuclideanVector& v2) {
         return false;
 
     // Secondly, check whether magnitudes of each dimension are equal
-    for (unsigned i = 0; i < v1.getNumDimensions(); ++i) {
-        if (v1.p2[i] != v2.p2[i])
+    for (unsigned i = 0u; i < v1.getNumDimensions(); ++i) {
+        if (v1[i] != v2[i])
             return false;
     }
 
@@ -209,12 +181,16 @@ EuclideanVector evec::operator-(const EuclideanVector& v1, const EuclideanVector
 }
 
 double evec::operator*(const EuclideanVector& v1, const EuclideanVector& v2) {
-    return std::inner_product(v1.p2, v1.p2 + *v1.p1, v2.p2, 0.0);
+    double res = 0;
+    for (unsigned i = 0u; i < v1.getNumDimensions(); ++i)
+        res += v1[i] * v2[i];
+    return res;
 }
 
 EuclideanVector evec::operator*(const EuclideanVector& v, double n) {
     EuclideanVector product {v};
-    std::transform(product.p2, product.p2 + *product.p1, product.p2, [&n] (auto& i) {return i * n;});
+    for (unsigned i = 0u; i < product.getNumDimensions(); ++i)
+        product[i] *= n;
     return product;
 }
 
@@ -228,35 +204,38 @@ EuclideanVector evec::operator/(const EuclideanVector& v, double n) {
 
 
 std::ostream& evec::operator<<(std::ostream& os, const EuclideanVector& v) {
-    if (v.p1 == nullptr) {
+    if (v.getNumDimensions() == 0) {
         std::cout << "[]";
         return os;
     }
+
     std::cout << '[';
-    std::for_each(v.p2, v.p2 + *v.p1 - 1, [] (const auto& i) {std::cout << i << ' ';});
-    std::cout << v.p2[*v.p1-1] << ']';
+    for (unsigned i = 0u; i < v.getNumDimensions() - 1; ++i)
+        std::cout << v[i] << ' ';
+
+    std::cout << v[v.getNumDimensions() - 1] << ']';
     return os;
 }
 
 /***********************************************  Debug  Functions  ***************************************************/
 
 void EuclideanVector::printInfo() const {
-    if (p1 == nullptr) {
+    if (numberOfDimension == 0) {
         std::cout << "Null\n\n";
         return;
     }
 
-    std::cout << "Number of dimensions: " << *p1 << '\n';
+    std::cout << "Number of dimensions: " << numberOfDimension << '\n';
     std::cout << "Magnitudes: ";
-    for (auto i = 0; i != *p1; ++i) {
-        std::cout << p2[i] << ' ';
+    for (unsigned i = 0u; i != getNumDimensions(); ++i) {
+        std::cout << magnitudes[i] << ' ';
     }
     std::cout << '\n';
-    if (p3 != nullptr)
-        std::cout << "Euclidean norm = " << *p3 << '\n';
+    if (euclideanNorm != -1)
+        std::cout << "Euclidean norm = " << euclideanNorm << '\n';
     else
         std::cout << "Euclidean norm = undefined" << '\n';
-    std::cout << "Array memory address = " << p2 << '\n';
-    std::cout << "Dimensionality memory address = " << p1 << '\n';
-    std::cout << "Euclidean norm address = " << p3 << '\n' << '\n';
+    std::cout << "Array memory address = " << magnitudes << '\n';
+    std::cout << "Dimensionality memory address = " << &numberOfDimension << '\n';
+    std::cout << "Euclidean norm address = " << euclideanNorm << '\n' << '\n';
 }
