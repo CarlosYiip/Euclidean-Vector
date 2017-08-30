@@ -86,24 +86,28 @@ namespace evec {
 
     private:
         unsigned numberOfDimension = 0; // Number of dimensions
-        double* magnitudes = nullptr; // Magnitudes of dimensions
-        mutable double euclideanNorm = -1; // Euclidean norm
+        double* magnitudes = nullptr; // Array of magnitudes of each dimension
+        mutable double euclideanNorm = 0; // Euclidean norm
 
+        // return a const pointer to the head of the magnitudes array
         double const * cbegin() const { 
             double const * p = magnitudes;
             return p;
         };
 
+        // return a const pointer to the tail of the magnitudes array
         double const * cend() const {
             double const * p = magnitudes + numberOfDimension;
             return p;
         }
 
+        // return a pointer to the head of the magnitudes array
         double * begin() {
             double * p = magnitudes;
             return p;
         }
 
+        // return a pointer to the tail of the magnitudes array
         double * end() {
             double * p = magnitudes + numberOfDimension;
             return p;

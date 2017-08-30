@@ -82,7 +82,7 @@ EuclideanVector& EuclideanVector::operator=(EuclideanVector&& other) {
 // Subscript Operator (set)
 double& EuclideanVector::operator[](int index) {
     // Euclidean norm might be changed
-    euclideanNorm = -1;
+    euclideanNorm = 0;
     return magnitudes[index];
 }
 
@@ -95,7 +95,7 @@ EuclideanVector& EuclideanVector::operator+=(const EuclideanVector& other) {
         magnitudes[i] += other[i];
 
     // Euclidean norm might be changed
-    euclideanNorm = -1;
+    euclideanNorm = 0;
     return *this;
 }
 
@@ -104,7 +104,7 @@ EuclideanVector& EuclideanVector::operator-=(const EuclideanVector& other) {
     for (unsigned i = 0u; i < getNumDimensions(); ++i)
         magnitudes[i] -= other[i];
     // Euclidean norm might be changed
-    euclideanNorm = -1;
+    euclideanNorm = 0;
     return *this;
 }
 
@@ -112,7 +112,7 @@ EuclideanVector& EuclideanVector::operator-=(const EuclideanVector& other) {
 EuclideanVector& EuclideanVector::operator*=(double i) {
     std::for_each(begin(), end(), [&i] (auto& d) { d *= i;});
     // Euclidean norm might be changed
-    euclideanNorm = -1;
+    euclideanNorm = 0;
     return *this;
 }
 
@@ -147,7 +147,7 @@ double EuclideanVector::get(unsigned i) const {
 
 // Return the euclidean norm
 double EuclideanVector::getEuclideanNorm() const {
-    if (euclideanNorm != -1) {
+    if (euclideanNorm != 0) {
         // If there is cached value
         return euclideanNorm;
     } else {
@@ -247,7 +247,7 @@ void EuclideanVector::printInfo() const {
         std::cout << magnitudes[i] << ' ';
     }
     std::cout << '\n';
-    if (euclideanNorm != -1)
+    if (euclideanNorm != 0)
         std::cout << "Euclidean norm = " << euclideanNorm << '\n';
     else
         std::cout << "Euclidean norm = undefined" << '\n';
