@@ -5,10 +5,10 @@ using namespace evec;
 /***************************************  Constructors and destructors  ***********************************************/
 
 // Default constructor
-EuclideanVector::EuclideanVector(): EuclideanVector(1) {}
+EuclideanVector::EuclideanVector(): EuclideanVector(1u) {}
 
 // Constructor that takes the number of dimensions but no magnitudes
-EuclideanVector::EuclideanVector(unsigned n): EuclideanVector(n, 0) {}
+EuclideanVector::EuclideanVector(unsigned n): EuclideanVector(n, 0.0) {}
 
 // Constructor that takes the number of dimensions and initialises the magnitude in each dimension as the second argument
 EuclideanVector::EuclideanVector(unsigned n, double m):
@@ -40,7 +40,7 @@ EuclideanVector::EuclideanVector(const EuclideanVector& other): numberOfDimensio
 
 // Move Constructor
 EuclideanVector::EuclideanVector(EuclideanVector&& other): numberOfDimension{other.getNumDimensions()}, magnitudes{other.begin()} {
-    other.numberOfDimension = 0;
+    other.numberOfDimension = 0u;
     other.magnitudes = nullptr;
 }
 
@@ -66,7 +66,7 @@ EuclideanVector& EuclideanVector::operator=(const EuclideanVector& other) {
 EuclideanVector& EuclideanVector::operator=(EuclideanVector&& other) {
     if (this != &other) {
         numberOfDimension = other.numberOfDimension;
-        other.numberOfDimension = 0;
+        other.numberOfDimension = 0u;
 
         // Deallocate memory
         delete[] magnitudes;
@@ -82,7 +82,7 @@ EuclideanVector& EuclideanVector::operator=(EuclideanVector&& other) {
 // Subscript Operator (set)
 double& EuclideanVector::operator[](int index) {
     // Euclidean norm might be changed
-    euclideanNorm = 0;
+    euclideanNorm = -1.0;
     return magnitudes[index];
 }
 
@@ -95,7 +95,7 @@ EuclideanVector& EuclideanVector::operator+=(const EuclideanVector& other) {
         magnitudes[i] += other[i];
 
     // Euclidean norm might be changed
-    euclideanNorm = 0;
+    euclideanNorm = -1.0;
     return *this;
 }
 
@@ -104,7 +104,7 @@ EuclideanVector& EuclideanVector::operator-=(const EuclideanVector& other) {
     for (unsigned i = 0u; i < getNumDimensions(); ++i)
         magnitudes[i] -= other[i];
     // Euclidean norm might be changed
-    euclideanNorm = 0;
+    euclideanNorm = -1.0;
     return *this;
 }
 
@@ -112,7 +112,7 @@ EuclideanVector& EuclideanVector::operator-=(const EuclideanVector& other) {
 EuclideanVector& EuclideanVector::operator*=(double i) {
     std::for_each(begin(), end(), [&i] (auto& d) { d *= i;});
     // Euclidean norm might be changed
-    euclideanNorm = 0;
+    euclideanNorm = -1.0;
     return *this;
 }
 
@@ -147,7 +147,7 @@ double EuclideanVector::get(unsigned i) const {
 
 // Return the euclidean norm
 double EuclideanVector::getEuclideanNorm() const {
-    if (euclideanNorm != 0) {
+    if (euclideanNorm != -1.0) {
         // If there is cached value
         return euclideanNorm;
     } else {
@@ -197,7 +197,7 @@ EuclideanVector evec::operator-(const EuclideanVector& v1, const EuclideanVector
 }
 
 double evec::operator*(const EuclideanVector& v1, const EuclideanVector& v2) {
-    double res = 0;
+    double res = 0.0;
     for (unsigned i = 0u; i < v1.getNumDimensions(); ++i)
         res += v1[i] * v2[i];
     return res;
@@ -220,7 +220,7 @@ EuclideanVector evec::operator/(const EuclideanVector& v, double n) {
 
 
 std::ostream& evec::operator<<(std::ostream& os, const EuclideanVector& v) {
-    if (v.getNumDimensions() == 0) {
+    if (v.getNumDimensions() == 0u) {
         std::cout << "[]";
         return os;
     }

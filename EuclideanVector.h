@@ -85,9 +85,9 @@ namespace evec {
         void printInfo() const;
 
     private:
-        unsigned numberOfDimension = 0; // Number of dimensions
+        unsigned numberOfDimension = 0u; // Number of dimensions
         double* magnitudes = nullptr; // Array of magnitudes of each dimension
-        mutable double euclideanNorm = 0; // Euclidean norm
+        mutable double euclideanNorm = -1.0; // Euclidean norm
 
         // return a const pointer to the head of the magnitudes array
         double const * cbegin() const { 
