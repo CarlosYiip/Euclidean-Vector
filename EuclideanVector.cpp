@@ -14,8 +14,24 @@ EuclideanVector::EuclideanVector(unsigned n): EuclideanVector(n, 0) {}
 EuclideanVector::EuclideanVector(unsigned n, double m):
         numberOfDimension{n}, magnitudes{new double[n]} { std::fill(begin(), end(), m); }
 
+// Constructor that takes iterators from a vector
+EuclideanVector::EuclideanVector(std::vector<double>::iterator beg, std::vector<double>::iterator end): 
+numberOfDimension{static_cast<unsigned>(std::distance(beg, end))}, magnitudes{new double[numberOfDimension]} {
+    std::copy(beg, end, begin());
+}
+
+// Constructor that takes iterators from a list
+EuclideanVector::EuclideanVector(std::list<double>::iterator beg, std::list<double>::iterator end): 
+numberOfDimension{static_cast<unsigned>(std::distance(beg, end))}, magnitudes{new double[numberOfDimension]} {
+    std::copy(beg, end, begin());
+}
+
+
 // Constructor that takes a initialiser list of doubles
-EuclideanVector::EuclideanVector(std::initializer_list<double> list): EuclideanVector{list.begin(), list.end()} {}
+EuclideanVector::EuclideanVector(std::initializer_list<double> list): 
+numberOfDimension{static_cast<unsigned>(std::distance(list.begin(), list.end()))}, magnitudes{new double[numberOfDimension]}{
+    std::copy(list.begin(), list.end(), begin());
+}
 
 // Copy Constructor
 EuclideanVector::EuclideanVector(const EuclideanVector& other): numberOfDimension{other.getNumDimensions()}, magnitudes{new double[other.getNumDimensions()]} { 
@@ -237,5 +253,5 @@ void EuclideanVector::printInfo() const {
         std::cout << "Euclidean norm = undefined" << '\n';
     std::cout << "Array memory address = " << magnitudes << '\n';
     std::cout << "Dimensionality memory address = " << &numberOfDimension << '\n';
-    std::cout << "Euclidean norm address = " << euclideanNorm << '\n' << '\n';
+    std::cout << "Euclidean norm address = " << &euclideanNorm << '\n' << '\n';
 }

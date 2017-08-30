@@ -21,13 +21,11 @@ namespace evec {
         // Constructor that takes the number of dimensions and initialises the magnitude in each dimension as the second argument
         EuclideanVector(unsigned, double);
 
-        // Constructor that takes the start and end of an iterator
+        // Constructor that takes iterators from a vector
+        EuclideanVector(std::vector<double>::iterator, std::vector<double>::iterator);
 
-        template <typename It>
-        EuclideanVector(It beg, It end): numberOfDimension{static_cast<unsigned>(std::distance(beg, end))}, magnitudes{new double[numberOfDimension]} {
-            std::copy(beg, end, begin());
-        }
-
+        // Constructor that takes iterators from a list
+        EuclideanVector(std::list<double>::iterator, std::list<double>::iterator);
 
         // Constructor that takes a initialiser list of doubles
         EuclideanVector(std::initializer_list<double>);
