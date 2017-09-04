@@ -87,7 +87,9 @@ double& EuclideanVector::operator[](int index) {
 }
 
 // Subscript Operator (get)
-double EuclideanVector::operator[](int index) const { return magnitudes[index]; }
+double EuclideanVector::operator[](int index) const {
+    return magnitudes[index];
+}
 
 // Compound Assignment Operator (+=)
 EuclideanVector& EuclideanVector::operator+=(const EuclideanVector& other) {
@@ -167,6 +169,9 @@ EuclideanVector EuclideanVector::createUnitVector() const {
 
 /**********************************************  Nonmember Functions  *************************************************/
 bool evec::operator==(const EuclideanVector& v1, const EuclideanVector& v2) {
+    if (&v1 == &v2)
+        return true;
+
     // Firstly, check whether the two vectors have same number of dimensions
     if (v1.getNumDimensions() != v2.getNumDimensions())
         return false;
@@ -218,7 +223,6 @@ EuclideanVector evec::operator/(const EuclideanVector& v, double n) {
     return v * (1 / n);
 }
 
-
 std::ostream& evec::operator<<(std::ostream& os, const EuclideanVector& v) {
     if (v.getNumDimensions() == 0u) {
         std::cout << "[]";
@@ -231,27 +235,4 @@ std::ostream& evec::operator<<(std::ostream& os, const EuclideanVector& v) {
 
     std::cout << v[v.getNumDimensions() - 1] << ']';
     return os;
-}
-
-/***********************************************  Debug  Functions  ***************************************************/
-
-void EuclideanVector::printInfo() const {
-    if (numberOfDimension == 0) {
-        std::cout << "Null\n\n";
-        return;
-    }
-
-    std::cout << "Number of dimensions: " << numberOfDimension << '\n';
-    std::cout << "Magnitudes: ";
-    for (unsigned i = 0u; i != getNumDimensions(); ++i) {
-        std::cout << magnitudes[i] << ' ';
-    }
-    std::cout << '\n';
-    if (euclideanNorm != 0)
-        std::cout << "Euclidean norm = " << euclideanNorm << '\n';
-    else
-        std::cout << "Euclidean norm = undefined" << '\n';
-    std::cout << "Array memory address = " << magnitudes << '\n';
-    std::cout << "Dimensionality memory address = " << &numberOfDimension << '\n';
-    std::cout << "Euclidean norm address = " << &euclideanNorm << '\n' << '\n';
 }

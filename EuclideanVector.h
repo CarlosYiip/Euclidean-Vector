@@ -81,9 +81,6 @@ namespace evec {
         // Create a unit vector
         EuclideanVector createUnitVector() const;
 
-        // Debug Helper functions
-        void printInfo() const;
-
     private:
         unsigned numberOfDimension = 0u; // Number of dimensions
         double* magnitudes = nullptr; // Array of magnitudes of each dimension
